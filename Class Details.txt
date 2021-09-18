@@ -1,0 +1,32 @@
+CLASS Portfolio
+	-List of Assets
+	-Total Current Value
+	-Total Investment
+	-Total Interest
+	-Allocation %
+	-MonthlySIP
+	>>setTCV
+	>>setInv
+	>>setTInt
+	>>setAllo
+	>>setMsip
+	
+CLASS Asset
+	-Name
+	-Type
+	-Investment
+	-Units Purchased
+	-Start Date
+	-Time Invested
+	-SIP
+	-Current Value
+	-Invested Amount
+	-Time Invested
+	-Interest Amount
+	-Interest Rate
+	>>setInvAmt
+	>>setTimeInv
+	>>setIntR
+	>>getIntAmt
+	
+	

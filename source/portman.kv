@@ -1,0 +1,218 @@
+#:kivy 2.0
+WindowManager:
+    HomeWindow:
+    BrowseWindow:
+    PortWindow:
+    CreateWindow:
+
+<HomeWindow>:
+    name: "home"
+    FloatLayout:
+        cols:1
+        height:'45sp'
+        width:'108sp'
+        Label:
+            text: "Upload from a saved Portfolio"
+            size_hint: 1,None
+            font_size:'25sp'
+            text_size:self.size
+            height:'30pt'
+            pos_hint: {"x":0.1, "top":0.8}
+        Button:
+            text: "Browse"
+            pos_hint: {"x":0.6, "top":0.8}
+            size_hint: 0.2,0.1
+            height:'45sp'
+            width:'108sp'
+            on_release:app.root.current = "browse"
+        Label:
+            text: "Create a new Portfolio"
+            size_hint: 1,None
+            font_size:'25sp'
+            text_size:self.size
+            height:'30pt'
+            pos_hint: {"x":0.1, "top":0.4}
+        Button:
+            pos_hint:{"x":0.45, "top":0.4}
+            size_hint: 0.2, 0.1
+            text: "Create"
+            on_release:app.root.current = "create"
+
+<BrowseWindow>:
+    name: "browse"
+    FloatLayout:
+        size:root.width, root.height-20
+        FileChooserListView:
+            size_hint:1, 0.9
+            pos_hint:{ "top":1}
+            id:filechooser 
+            filters: ['*.xlsx']
+            path:'./source/'
+            
+    FloatLayout:
+        size:root.width, 20
+        Button:
+            pos_hint:{"x":0.4, "bottom":1}
+            size_hint:0.2,0.1
+            text: "Upload"
+            on_release: 
+                root.manager.transition.direction = "left"
+                root.upload(filechooser.selection)
+
+<LoadingWindow>:
+    name: "load"
+    FloatLayout:
+        size:root.width, root.height
+        Image:
+            source:'./source/Loading.jpg'
+
+<PortWindow>:
+    name: "port"
+    tval:tval
+    n_asst:n_asst
+    growth:growth
+    m_sip:m_sip
+    fig:fig
+
+    FloatLayout:
+        Label:
+            id: n_asst
+            pos_hint: {"x":0.1, "top":0.95}
+            size_hint: 1,None
+            font_size:'18sp'
+            text_size:root.width,None
+            height:'18pt'
+        Label:
+            id:tval
+            pos_hint: {"x":0.1, "top":0.9}
+            size_hint: 1,None
+            font_size:'18sp'
+            height:'18pt'
+            text_size:root.width,None
+        Label:
+            id:growth
+            pos_hint: {"x":0.1, "top":0.85}
+            size_hint: 1,None
+            font_size:'18sp'
+            height:'20pt'
+            text_size:root.width,None 
+        Label:
+            id: m_sip
+            pos_hint: {"x":0.1, "top":0.8}
+            size_hint: 1,None
+            font_size:'18sp'
+            height:'20pt'
+            text_size:root.width,None
+        Image:
+            id:fig
+            pos_hint: {"x":0.1, "top":0.73}
+            size_hint:0.6,0.5
+            allow_stretch:True
+            keep_ratio:False
+        Button:
+            text: "Check Allocation"
+            pos_hint: {"x":0.1, "top":0.2}
+            size_hint:0.25,0.1
+            on_release: 
+                app.root.current="alloc"
+                root.manager.transition.direction = "left"
+        Button:
+            text: "Asset Performance"
+            pos_hint: {"x":0.6, "top":0.2}
+            size_hint:0.25,0.1
+            on_release: 
+                app.root.current="assets"
+                root.manager.transition.direction = "left"
+             
+<AllocationWindow>:
+    name:"alloc"
+    tval:tval
+    pie:pie
+    FloatLayout:
+        Label:
+            id:tval
+            pos_hint: {"x":0.45, "top":0.9}
+            size_hint: 1,None
+            font_size:'18sp'
+            height:'20pt'
+            text_size:root.width,None
+        Image:
+            id:pie
+            pos_hint: {"x":0.17, "top":0.82}
+            size_hint:0.65,0.65
+            allow_stretch:True
+            keep_ratio:False
+        Button:
+            text:"Rebalance"
+            pos_hint: {"x":0.4, "top":0.1}
+            size_hint:0.2,0.1
+            on_release: app.root.current="alloc"
+        Button:
+            text:"Back"
+            pos_hint: {"x":0.02, "top":0.98}
+            size_hint:0.05,0.05
+            on_release: 
+                app.root.current="port"
+                root.manager.transition.direction = "right"
+<PopupWindow>:
+    name: "popup"
+    nme:nme
+    close:close
+    typ:typ
+    amt:amt
+    dte:dte
+    intr:intr
+    bar:bar
+    Button:
+        id: close
+        text:"Close"
+        size_hint: 0.1,0.1
+        pos_hint: {"x":0.9, "top":1}
+    Label:
+        id: nme
+        size_hint: 1,None
+        font_size:'18sp'
+        text_size:root.width,None
+        height:'20pt'
+        pos_hint: {"x":0.1, "top":0.95}
+    Label:
+        id: typ
+        size_hint: 1,None
+        font_size:'15sp'
+        text_size:root.width,None
+        height:'20pt'
+        pos_hint: {"x":0.1, "top":0.9}
+    Label:
+        id: amt
+        size_hint: 1,None
+        font_size:'15sp'
+        text_size:root.width,None
+        height:'20pt'
+        pos_hint: {"x":0.1, "top":0.85}
+    Label:
+        id: dte
+        size_hint: 1,None
+        font_size:'15sp'
+        text_size:root.width,None
+        height:'20pt'
+        pos_hint: {"x":0.1, "top":0.8}
+    Label:
+        id: intr
+        size_hint: 1,None
+        font_size:'15sp'
+        text_size:root.width,None
+        height:'20pt'
+        pos_hint: {"x":0.1, "top":0.75}
+    Image:
+        id:bar
+        pos_hint: {"x":0.1, "top":0.65}
+        size_hint:0.7,0.6
+        allow_stretch:True
+        keep_ratio:False
+        
+        
+<CreateWindow>:
+    name: "create"
+<AssetWindow>:
+    name: "assets"
+    
